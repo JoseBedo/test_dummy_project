@@ -1,0 +1,69 @@
+version: '3.8'
+
+services:
+  stripe-cli:
+    image: stripe/stripe-cli:v1.13.8
+    container_name: stripe-cli
+    command: "listen --api-key $${STRIPE_API_KEY} --device-name $${STRIPE_DEVICE_NAME} --forward-to  $${STRIPE_FORWARD_URL}"
+    env_file:
+      - ./.env.dev
+  api:
+    build: ./api
+    container_name: api
+    command: python manage.py runserver 0.0.0.0:8000
+    volumes:
+      - ./api/:/usr/src/api/
+    ports:
+      - "8000:8000"
+      - "8888:8888"
+    env_file:
+      - ./.env.dev
+    depends_on:
+      - db
+  holistiqumweb:
+    container_name: holistiqumweb
+    build:
+      context: ./holistiqumweb
+      dockerfile: Dockerfile
+      args:
+        - REACT_APP_IS_PRODUCTION=false
+    environment:
+      CHOKIDAR_USEPOLLING: "true"
+    depends_on:
+      - api
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./holistiqumweb/:/usr/src/holistiqumweb/
+      - /usr/src/holistiqumweb/node_modules
+    stdin_open: true
+    command: npm start
+
+  db:
+    container_name: db
+    image: postgres:13.0-alpine
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+    environment:
+      - POSTGRES_USER=localuser
+      - POSTGRES_PASSWORD=localpassword
+      - POSTGRES_DB=localholistiqumdb
+  redis:
+    container_name: redis
+    image: redis:alpine
+    ports:
+      - "6379:6379"
+  worker:
+    container_name: worker
+    build: ./api
+    volumes:
+      - ./api/:/usr/src/api/
+    command: python manage.py rqworker default
+    depends_on:
+      - redis
+      - db
+    env_file:
+      - ./.env.dev
+
+volumes:
+  postgres_data:

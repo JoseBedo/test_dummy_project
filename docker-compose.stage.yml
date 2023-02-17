@@ -1,0 +1,73 @@
+version: '3.8'
+
+services:
+  api:
+    build:
+      context: ./api
+      dockerfile: Dockerfile.prod
+    command: gunicorn holistiqum.wsgi:application --bind 0.0.0.0:8000
+    volumes:
+      - static_volume:/home/app/api/static
+      - media_volume:/home/app/api/media
+    expose:
+      - 8000
+    env_file:
+      - ./.env.stage
+
+  holistiqumweb:
+    build:
+      context: ./holistiqumweb
+      dockerfile: Dockerfile.prod
+      args:
+        - REACT_APP_IS_PRODUCTION=true
+    depends_on:
+      - api
+    ports:
+      - "3000:3000"
+    volumes:
+      - holistiqumweb_volume:/home/app/holistiqumweb
+      - api_volume:/home/app/api
+    command: npm run build
+
+  nginx:
+    build:
+      context: ./nginx
+      dockerfile: Dockerfile.stage
+    volumes:
+      - static_volume:/home/app/api/static
+      - media_volume:/home/app/api/media
+      - holistiqumweb_volume:/home/app/holistiqumweb
+      - api_volume:/home/app/api
+      - ./certbot/www:/var/www/certbot/
+      - ./certbot/conf/:/etc/nginx/ssl/
+    ports:
+      - 80:80
+      - 443:443
+
+    depends_on:
+      - api
+    env_file:
+      - ./.env.stage
+
+  worker:
+    extends:
+      service: api
+    volumes:
+      - ./api/:/home/app/api/
+    command: python manage.py rqworker default
+    env_file:
+      - ./.env.stage
+
+  certbot:
+    image: certbot/certbot:latest
+    volumes:
+      - ./certbot/www/:/var/www/certbot/
+      - ./certbot/conf/:/etc/letsencrypt/
+
+volumes:
+  static_volume:
+  media_volume:
+  api_volume:
+  holistiqumweb_volume:
+
+
