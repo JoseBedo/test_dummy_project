@@ -1,0 +1,1043 @@
+{
+	"info": {
+		"_postman_id": "45b69714-bc5a-4274-acc9-e9d0f4302575",
+		"name": "HolistiqumEndpoints",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "Get Bearer Token",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\":\"god@god.com\",\n    \"password\":\"fake_password\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8000/api/v1/token/obtain/",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"v1",
+								"token",
+								"obtain",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Reset password",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"uid\":\"What ever user uid you want to tests\",\n    \"token\": \"Bearer Token you can see in the web browser cookies\",\n    \"action\": \"RESET_PASSWORD\",\n    \"password\": \"my_new_password\"\n\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8000/api/v1/user/validate_token/",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"v1",
+								"user",
+								"validate_token",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Activate user",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"uid\":\"What ever user uid you want to tests\",\n    \"token\": \"Bearer Token you can see in the web browser cookies\",\n    \"action\": \"ACTIVATE_USER\"\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8000/api/v1/user/validate_token/",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"v1",
+								"user",
+								"validate_token",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Validate Session",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjc0OTUxNjQ3LCJpYXQiOjE2NzM2NTU2NDcsImp0aSI6ImVjMWYzZmMyNTgzNTQyMTU4MThmN2E0NDNlMDg1NDA0IiwidXNlcl9pZCI6MjAyfQ.GSQbNKfwjqqVJzeqPZ6zRKehGKA3cr5-dXrJ87Svq80",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"access\":\"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjc1MjI3NjQ1LCJpYXQiOjE2NzM5MzE2NDUsImp0aSI6ImMyMDExZDRmMzlhODRjNjg4Zjg3NWViM2NlZTZmNjExIiwidXNlcl9pZCI6MjAyfQ.Hm8V2ljX4_Ynj9YM_AMIDmcUHeRbgYNV_qhqeiguJi0\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8000/api/v1/user/validate_session/",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"v1",
+								"user",
+								"validate_session",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Backend",
+			"item": [
+				{
+					"name": "Get Specialties",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8000/api/v1/specialty/get_specialties/",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"v1",
+								"specialty",
+								"get_specialties",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get dashboard news",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjc0OTUxNjQ3LCJpYXQiOjE2NzM2NTU2NDcsImp0aSI6ImVjMWYzZmMyNTgzNTQyMTU4MThmN2E0NDNlMDg1NDA0IiwidXNlcl9pZCI6MjAyfQ.GSQbNKfwjqqVJzeqPZ6zRKehGKA3cr5-dXrJ87Svq80",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8000/api/v1/resource/get_dashboard_news/",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"v1",
+								"resource",
+								"get_dashboard_news",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get countries and cities",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8000/api/v1/resource/get_countries_cities/",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"v1",
+								"resource",
+								"get_countries_cities",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Register user therapist",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\":\"aveprime@gmail.com\",\n    \"password\": \"fake_password\",\n    \"typeUser\": \"therapist\"\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8000/api/v1/user/register/",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"v1",
+								"user",
+								"register",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Holistiqum Users",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjc0OTUxNjQ3LCJpYXQiOjE2NzM2NTU2NDcsImp0aSI6ImVjMWYzZmMyNTgzNTQyMTU4MThmN2E0NDNlMDg1NDA0IiwidXNlcl9pZCI6MjAyfQ.GSQbNKfwjqqVJzeqPZ6zRKehGKA3cr5-dXrJ87Svq80",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8000/api/v1/holistiqumuser/get_holistiqumusers/",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"v1",
+								"holistiqumuser",
+								"get_holistiqumusers",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Therapists Index",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8000/api/v1/therapist/get_therapists/",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"v1",
+								"therapist",
+								"get_therapists",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Therapist Detail",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjc0OTUxNjQ3LCJpYXQiOjE2NzM2NTU2NDcsImp0aSI6ImVjMWYzZmMyNTgzNTQyMTU4MThmN2E0NDNlMDg1NDA0IiwidXNlcl9pZCI6MjAyfQ.GSQbNKfwjqqVJzeqPZ6zRKehGKA3cr5-dXrJ87Svq80",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8000/api/v1/therapist/get_therapist_detail/",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"v1",
+								"therapist",
+								"get_therapist_detail",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Therapist Index",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8000/api/v1/therapist/get_therapists/",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"v1",
+								"therapist",
+								"get_therapists",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Holistiqum User Detail",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjc0NTc1NTE2LCJpYXQiOjE2NzMyNzk1MTYsImp0aSI6IjNhYTNkZWZhYzBjODRiMTVhYTg5YjJkZDAwMmViYTU2IiwidXNlcl9pZCI6MjAyfQ.X3D7u3X0Gr3gsBUFdVCeccD_7uaZnGbbhMPLTXmEKu8",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8000/api/v1/holistiqumuser/get_holistiqumuser_detail/",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"v1",
+								"holistiqumuser",
+								"get_holistiqumuser_detail",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Tour",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjc0NTc1NTE2LCJpYXQiOjE2NzMyNzk1MTYsImp0aSI6IjNhYTNkZWZhYzBjODRiMTVhYTg5YjJkZDAwMmViYTU2IiwidXNlcl9pZCI6MjAyfQ.X3D7u3X0Gr3gsBUFdVCeccD_7uaZnGbbhMPLTXmEKu8",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"to_update\":\"SKIPPED\",\n    \"tour_name\":\"HOLISTIQUMUSER_INITIAL\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8000/api/v1/user/update_tour/",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"v1",
+								"user",
+								"update_tour",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Biopairs",
+			"item": [
+				{
+					"name": "Get Biopairs Library",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjc0OTUxNjQ3LCJpYXQiOjE2NzM2NTU2NDcsImp0aSI6ImVjMWYzZmMyNTgzNTQyMTU4MThmN2E0NDNlMDg1NDA0IiwidXNlcl9pZCI6MjAyfQ.GSQbNKfwjqqVJzeqPZ6zRKehGKA3cr5-dXrJ87Svq80",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8000/api/v1/biopairs/get_biopairs_library/",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"v1",
+								"biopairs",
+								"get_biopairs_library",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Blog",
+			"item": [
+				{
+					"name": "Get Articles",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8000/api/v1/article/get_articles/",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"v1",
+								"article",
+								"get_articles",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Tags",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8000/api/v1/tag/",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"v1",
+								"tag",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Categories",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8000/api/v1/category/",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"v1",
+								"category",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Most Popular Tags",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8000/api/v1/tag/get_most_popular/",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"v1",
+								"tag",
+								"get_most_popular",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Most Popular categories",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8000/api/v1/category/get_most_popular/",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"v1",
+								"category",
+								"get_most_popular",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Sendinblue",
+			"item": [
+				{
+					"name": "Get Sendinblue Folders",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjc2MzkwNzgyLCJpYXQiOjE2NzUwOTQ3ODIsImp0aSI6IjUxMzM0ZDg0M2QzMDQzZDRiNGRlZmE4YzUyNzM1NmQxIiwidXNlcl9pZCI6MTAxfQ.GQuDF-jLV9hb1_lm9JZMQCHWNUjH5kQAc0uZrUhoHz8",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8000/api/v1/sendinblue/get_all_folders/",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"v1",
+								"sendinblue",
+								"get_all_folders",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Sendidnblue Lists",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjc2MTczOTY0LCJpYXQiOjE2NzQ4Nzc5NjQsImp0aSI6IjI5ZGI4ZTY3YzkwODQwODQ5YzcyZTg2YTMyYjY2YTE1IiwidXNlcl9pZCI6MTAxfQ.sY-BIf7mAxj--qjJOkKYvNnNkuE5AnzjnB-M2Uc8GnU",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8000/api/v1/sendinblue/get_all_contactlists/",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"v1",
+								"sendinblue",
+								"get_all_contactlists",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Contacts",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjc2MTczOTY0LCJpYXQiOjE2NzQ4Nzc5NjQsImp0aSI6IjI5ZGI4ZTY3YzkwODQwODQ5YzcyZTg2YTMyYjY2YTE1IiwidXNlcl9pZCI6MTAxfQ.sY-BIf7mAxj--qjJOkKYvNnNkuE5AnzjnB-M2Uc8GnU",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8000/api/v1/sendinblue/get_all_contacts/",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"v1",
+								"sendinblue",
+								"get_all_contacts",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "SyncDatabase",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjc2MzkwNzgyLCJpYXQiOjE2NzUwOTQ3ODIsImp0aSI6IjUxMzM0ZDg0M2QzMDQzZDRiNGRlZmE4YzUyNzM1NmQxIiwidXNlcl9pZCI6MTAxfQ.GQuDF-jLV9hb1_lm9JZMQCHWNUjH5kQAc0uZrUhoHz8",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8000/api/v1/sendinblue/sync_db/",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"v1",
+								"sendinblue",
+								"sync_db",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Payments (Stripe)",
+			"item": [
+				{
+					"name": "Get Products",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjc2MTczOTY0LCJpYXQiOjE2NzQ4Nzc5NjQsImp0aSI6IjI5ZGI4ZTY3YzkwODQwODQ5YzcyZTg2YTMyYjY2YTE1IiwidXNlcl9pZCI6MTAxfQ.sY-BIf7mAxj--qjJOkKYvNnNkuE5AnzjnB-M2Uc8GnU",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8000/api/v1/payments/dashboard/get_products/",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"v1",
+								"payments",
+								"dashboard",
+								"get_products",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Prices",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjc2MTczOTY0LCJpYXQiOjE2NzQ4Nzc5NjQsImp0aSI6IjI5ZGI4ZTY3YzkwODQwODQ5YzcyZTg2YTMyYjY2YTE1IiwidXNlcl9pZCI6MTAxfQ.sY-BIf7mAxj--qjJOkKYvNnNkuE5AnzjnB-M2Uc8GnU",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8000/api/v1/payments/dashboard/get_prices/",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"v1",
+								"payments",
+								"dashboard",
+								"get_prices",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Tarot",
+			"item": [
+				{
+					"name": "New Reading Type",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "fake_password",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "god@god.com",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Lectura de prueba\",\n    \"num_cards\": 25\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8000/tarot/types/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"tarot",
+								"types",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Reading Types",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "fake_password",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "god@god.com",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8000/tarot/types/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"tarot",
+								"types",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "New Card Readings",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "fake_password",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "god@god.com",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"question\": \"Test Question?\",\n    \"cards\": null,\n    \"type_reading\": 1\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8000/tarot/reading/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"tarot",
+								"reading",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Card Readings",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "fake_password",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "god@god.com",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8000/tarot/reading/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"tarot",
+								"reading",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Tarot Card",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "fake_password",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "god@god.com",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"El mago\",\n    \"description\": \"Esta es una carta que se creo como prueba\",\n    \"image\": null,\n    \"is_up\": false\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8000/tarot/cards/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"tarot",
+								"cards",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Tarot Cards",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "fake_password",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "god@god.com",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8000/tarot/cards/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"tarot",
+								"cards",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
