@@ -3,13 +3,13 @@ version: '3.8'
 services:
   stripe-cli:
     image: stripe/stripe-cli:v1.13.8
-    container_name: stripe-cli
+    container_name: stripe-cli_test
     command: "listen --api-key $${STRIPE_API_KEY} --device-name $${STRIPE_DEVICE_NAME} --forward-to  $${STRIPE_FORWARD_URL}"
     env_file:
       - ./.env.dev
   api:
     build: ./api
-    container_name: api
+    container_name: api_test
     command: python manage.py runserver 0.0.0.0:8000
     volumes:
       - ./api/:/usr/src/api/
@@ -21,7 +21,7 @@ services:
     depends_on:
       - db
   holistiqumweb:
-    container_name: holistiqumweb
+    container_name: holistiqumweb_test
     build:
       context: ./holistiqumweb
       dockerfile: Dockerfile
@@ -40,7 +40,7 @@ services:
     command: npm start
 
   db:
-    container_name: db
+    container_name: db_test
     image: postgres:13.0-alpine
     volumes:
       - postgres_data:/var/lib/postgresql/data/
@@ -49,12 +49,12 @@ services:
       - POSTGRES_PASSWORD=localpassword
       - POSTGRES_DB=localholistiqumdb
   redis:
-    container_name: redis
+    container_name: redis_test
     image: redis:alpine
     ports:
-      - "6379:6379"
+      - "6378:6378"
   worker:
-    container_name: worker
+    container_name: worker_test
     build: ./api
     volumes:
       - ./api/:/usr/src/api/
