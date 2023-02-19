@@ -4,7 +4,13 @@ jobs:
   run_tests: 
     runs-on: ubuntu_latest
     steps:
-     - run: cd api # move to api folder
-     - run: pip install -r requirements.txt # install all our dependencies for the project
-     - run: docker-compse up -d 
-     - run: docker exec api pytest -s 
+    - uses: actions/checkout@v2
+
+    - name: Setup latest Alpine Linux
+      uses: jirutka/setup-alpine@v1
+
+    - name: Run script inside Alpine chroot as root
+      run: |
+        docker-compse up -d 
+        docker exec api_test pytest -s 
+      shell: alpine.sh --rSoot {0}
