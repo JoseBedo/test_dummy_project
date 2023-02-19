@@ -111,6 +111,7 @@ jobs:
         # docker-compose -f docker-compose.yml build
         # docker-compose -f docker-compose.yml up -d
         docker-compose up -d --build
+        docker ps
     - name: Run django tests in container
       run: docker exec api_test pytest -s 
     - name: Stop containers
