@@ -114,9 +114,17 @@ jobs:
         docker ps
       env:
         DATABASE_URL: postgres://${{ matrix.database-user }}:${{ matrix.database-password }}@${{ matrix.database-host }}:${{ matrix.database-port }}/${{ matrix.database-name }}
-        SECRET_KEY: test-secret-key
-        DEBUG: 1
-        DJANGO_ALLOWED_HOSTS: localhost
+        ENVIROMENT: DEV
+        SECRET_KEY: foo
+        DJANGO_ALLOWED_HOSTS: localhost 127.0.0.1 0.0.0.0 192.168.1.82 [::1]
+        SQL_ENGINE: django.db.backends.postgresql
+        SQL_DATABASE: localholistiqumdb
+        SQL_USER: localuser
+        SQL_PASSWORD: localpassword
+        SQL_HOST: db
+        SQL_PORT: 5432
+        DATABASE: postgres
+        REDIS_HOST: redis
         GITHUB_WORKFLOW: True
         MODE: workflow
     - name: Run django tests in container
