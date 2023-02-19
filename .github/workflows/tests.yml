@@ -93,6 +93,7 @@ jobs:
         python manage.py migrate --run-syncdb
     - name: Run tests
       run: |
+          cd api
           python manage.py test
       env:
         DATABASE_URL: postgres://${{ matrix.database-user }}:${{ matrix.database-password }}@${{ matrix.database-host }}:${{ matrix.database-port }}/${{ matrix.database-name }}
