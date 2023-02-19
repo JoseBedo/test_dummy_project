@@ -105,12 +105,19 @@ jobs:
     - uses: actions/checkout@v2.4.0
     - name: Build the images and start the containers
       run: |
+        cd ../
         export GITHUB_WORKFLOW=True
         export MODE="Test"
-        cd ../
         docker-compose -f docker-compose.yml build
         docker-compose -f docker-compose.yml up -d
         # run: docker-compose up -d --build
+      env:
+        DATABASE_URL: postgres://${{ matrix.database-user }}:${{ matrix.database-password }}@${{ matrix.database-host }}:${{ matrix.database-port }}/${{ matrix.database-name }}
+        SECRET_KEY: test-secret-key
+        DEBUG: 1
+        DJANGO_ALLOWED_HOSTS: localhost
+        GITHUB_WORKFLOW: True
+        MODE: workflow
     - name: Stop containers
       if: always()
       run: docker-compose -f "docker-compose.yml" down
