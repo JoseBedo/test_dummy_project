@@ -112,6 +112,13 @@ jobs:
         # docker-compose -f docker-compose.yml up -d
         docker-compose up -d --build
         docker ps
+      env:
+        DATABASE_URL: postgres://${{ matrix.database-user }}:${{ matrix.database-password }}@${{ matrix.database-host }}:${{ matrix.database-port }}/${{ matrix.database-name }}
+        SECRET_KEY: test-secret-key
+        DEBUG: 1
+        DJANGO_ALLOWED_HOSTS: localhost
+        GITHUB_WORKFLOW: True
+        MODE: workflow
     - name: Run django tests in container
       run: docker exec api_test pytest -s 
     - name: Stop containers
