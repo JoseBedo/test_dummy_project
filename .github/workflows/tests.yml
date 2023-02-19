@@ -40,6 +40,14 @@ jobs:
 
 
     steps:
+
+      - name: Make envfile
+      uses: SpicyPizza/create-envfile@v1
+      with:
+        DJANGO_ALLOWED_HOSTS: localhost 127.0.0.1 0.0.0.0 192.168.1.82 [::1]
+        file_name: .env.dev
+
+
     - uses: actions/checkout@v2.4.0
     - name: Set up Python ${{ matrix.python-version }}
       uses: actions/setup-python@v2.3.1
@@ -106,6 +114,7 @@ jobs:
       run: |
         export GITHUB_WORKFLOW=True
         export MODE="Test"
+        cd ../
         docker-compose -f docker-compose.yml build
         docker-compose -f docker-compose.yml up -d
         # run: docker-compose up -d --build
