@@ -40,14 +40,6 @@ jobs:
 
 
     steps:
-
-    - name: Make envfile
-      uses: SpicyPizza/create-envfile@v1
-      with:
-        DJANGO_ALLOWED_HOSTS: localhost 127.0.0.1 0.0.0.0 192.168.1.82 [::1]
-        file_name: .env.dev
-
-
     - uses: actions/checkout@v2.4.0
     - name: Set up Python ${{ matrix.python-version }}
       uses: actions/setup-python@v2.3.1
@@ -93,7 +85,7 @@ jobs:
         export DATABASE_URL=postgres://${{ matrix.database-user }}:${{ matrix.database-password }}@${{ matrix.database-host }}:${{ matrix.database-port }}/${{ matrix.database-name }}
         export SECRET_KEY=test-secret-key
         export DEBUG=1
-        export ALLOWED_HOSTS=localhost
+        export DJANGO_ALLOWED_HOSTS=localhost
         export GITHUB_WORKFLOW=True
         export MODE=workflow
         python manage.py makemigrations
