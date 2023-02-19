@@ -113,6 +113,10 @@ jobs:
       env:
         DATABASE_URL: postgres://${{ matrix.database-user }}:${{ matrix.database-password }}@${{ matrix.database-host }}:${{ matrix.database-port }}/${{ matrix.database-name }}
         SECRET_KEY: test-secret-key
+        STRIPE_FORWARD_URL: 192.168.0.4:8000/api/v1/payments/webhook/
+        STRIPE_API_KEY: aa
+        STRIPE_DEVICE_NAME: laptopjose
+        STRIPE_ENDPOINT_SECRET: aa
         DEBUG: 1
         DJANGO_ALLOWED_HOSTS: localhost
         GITHUB_WORKFLOW: True
@@ -120,3 +124,14 @@ jobs:
     - name: Stop containers
       if: always()
       run: docker-compose -f "docker-compose.yml" down
+      env:
+        DATABASE_URL: postgres://${{ matrix.database-user }}:${{ matrix.database-password }}@${{ matrix.database-host }}:${{ matrix.database-port }}/${{ matrix.database-name }}
+        SECRET_KEY: test-secret-key
+        STRIPE_FORWARD_URL: 192.168.0.4:8000/api/v1/payments/webhook/
+        STRIPE_API_KEY: aa
+        STRIPE_DEVICE_NAME: laptopjose
+        STRIPE_ENDPOINT_SECRET: aa
+        DEBUG: 1
+        DJANGO_ALLOWED_HOSTS: localhost
+        GITHUB_WORKFLOW: True
+        MODE: workflow
