@@ -13,4 +13,4 @@ jobs:
       run: |
         docker-compse up -d 
         docker exec api_test pytest -s 
-      shell: alpine.sh --rSoot {0}
+      shell: alpine.sh --root {0}
