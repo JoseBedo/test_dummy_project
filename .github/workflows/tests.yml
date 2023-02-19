@@ -41,7 +41,7 @@ jobs:
 
     steps:
 
-      - name: Make envfile
+    - name: Make envfile
       uses: SpicyPizza/create-envfile@v1
       with:
         DJANGO_ALLOWED_HOSTS: localhost 127.0.0.1 0.0.0.0 192.168.1.82 [::1]
