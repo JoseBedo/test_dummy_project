@@ -99,7 +99,7 @@ jobs:
         DATABASE_URL: postgres://${{ matrix.database-user }}:${{ matrix.database-password }}@${{ matrix.database-host }}:${{ matrix.database-port }}/${{ matrix.database-name }}
         SECRET_KEY: test-secret-key
         DEBUG: 1
-        ALLOWED_HOSTS: localhost
+        DJANGO_ALLOWED_HOSTS: localhost
         GITHUB_WORKFLOW: True
         MODE: workflow
     - uses: actions/checkout@v2.4.0
