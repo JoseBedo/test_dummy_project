@@ -47,7 +47,7 @@ jobs:
         # docker-compose -f docker-compose.yml up -d
         docker-compose up -d --build
         docker ps  
-      shell: alpine.sh --root {0}
+      shell: alpine.sh {0}
           
     - name: Run django tests in container
       run: |
