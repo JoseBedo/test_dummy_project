@@ -33,8 +33,8 @@ jobs:
 
     steps:
 
-  - name: Setup latest Alpine Linux
-    uses: jirutka/setup-alpine@v1
+    - name: Setup latest Alpine Linux
+      uses: jirutka/setup-alpine@v1
 
     - uses: actions/checkout@v2.4.0
     - name: Build the images and start the containers
