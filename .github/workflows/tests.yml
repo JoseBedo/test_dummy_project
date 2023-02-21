@@ -33,6 +33,9 @@ jobs:
 
     steps:
 
+  - name: Setup latest Alpine Linux
+    uses: jirutka/setup-alpine@v1
+
     - uses: actions/checkout@v2.4.0
     - name: Build the images and start the containers
       run: |
@@ -42,7 +45,9 @@ jobs:
         # docker-compose -f docker-compose.yml build
         # docker-compose -f docker-compose.yml up -d
         docker-compose up -d --build
-        docker ps      
+        docker ps  
+      shell: alpine.sh --root {0}
+          
     - name: Run django tests in container
       run: |
         docker ps
