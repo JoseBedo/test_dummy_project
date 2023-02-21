@@ -32,6 +32,7 @@ jobs:
         # MODE: workflow
     steps:
     - uses: actions/checkout@v2.4.0
+    - uses: actions/setup-python@v2 
     - name: Build the images and start the containers
       run: |
         touch .env.dev
