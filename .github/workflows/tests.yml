@@ -8,22 +8,6 @@ jobs:
 
     runs-on: ubuntu-latest
     env:
-        ENVIROMENT: DEV
-        SECRET_KEY: foo
-        DJANGO_ALLOWED_HOSTS: localhost 127.0.0.1 0.0.0.0 192.168.1.82 [::1]
-        SQL_ENGINE: django.db.backends.postgresql
-        SQL_DATABASE: localholistiqumdb
-        SQL_USER: localuser
-        SQL_PASSWORD: localpassword
-        SQL_HOST: db
-        SQL_PORT: 5432
-        DATABASE: postgres
-        REDIS_HOST: redis
-        SENDINBLUE_API_KEY: 
-        SLACK_TOKEN: 
-        API_PREFIX: api
-        API_VERSION: v1
-        API_URL: api/v1/
         STRIPE_FORWARD_URL: 192.168.0.4:8000/api/v1/payments/webhook/
         STRIPE_API_KEY: aa
         STRIPE_DEVICE_NAME: laptopjose
@@ -36,6 +20,23 @@ jobs:
     - name: Build the images and start the containers
       run: |
         touch .env.dev
+        echo "ENVIROMENT=DEV" >> .env.dev
+        echo "SECRET_KEY=foo" >> .env.dev
+        echo "DJANGO_ALLOWED_HOSTS=localhost 127.0.0.1 0.0.0.0 192.168.1.82 [::1]" >> .env.dev
+        echo "SQL_ENGINE=django.db.backends.postgresql" >> .env.dev
+        echo "SQL_DATABASE=localholistiqumdb" >> .env.dev
+        echo "SQL_USER=localuser" >> .env.dev
+        echo "SQL_PASSWORD=localpassword" >> .env.dev
+        echo "SQL_HOST=db" >> .env.dev
+        echo "SQL_PORT=5432" >> .env.dev
+        echo "DATABASE=postgres" >> .env.dev
+        echo "REDIS_HOST=redis" >> .env.dev
+        echo "SENDINBLUE_API_KEY = ''" >> .env.dev
+        echo "SLACK_TOKEN = ''" >> .env.dev
+        echo "API_PREFIX = 'api'" >> .env.dev
+        echo "API_VERSION = 'v1'" >> .env.dev
+        echo "API_URL = 'api/v1/'" >> .env.dev
+        echo "" >> .env.dev
         # export GITHUB_WORKFLOW=True
         # export MODE="Test"
         # docker-compose -f docker-compose.yml build
