@@ -1,10 +1,42 @@
-on: push
-name: Runing all tests
+name: Project_Test
+
+on: [push]
+
 jobs:
-  run_tests: 
-    runs-on: ubuntu_latest
+
+  Run_Tests:
+
+    runs-on: ubuntu-latest
     steps:
-     - run: cd api # move to api folder
-     - run: pip install -r requirements.txt # install all our dependencies for the project
-     - run: docker-compse up -d 
-     - run: docker exec api pytest -s 
+    - uses: actions/checkout@v2.4.0
+    - uses: actions/setup-python@v2 
+    - name: Build the images and start the containers
+      run: |
+        touch .env.dev
+        echo "ENVIROMENT=DEV" >> .env.dev
+        echo "SECRET_KEY=foo" >> .env.dev
+        echo "DJANGO_ALLOWED_HOSTS=localhost 127.0.0.1 0.0.0.0 192.168.1.82 [::1]" >> .env.dev
+        echo "SQL_ENGINE=django.db.backends.postgresql" >> .env.dev
+        echo "SQL_DATABASE=localholistiqumdb" >> .env.dev
+        echo "SQL_USER=localuser" >> .env.dev
+        echo "SQL_PASSWORD=localpassword" >> .env.dev
+        echo "SQL_HOST=db" >> .env.dev
+        echo "SQL_PORT=5432" >> .env.dev
+        echo "DATABASE=postgres" >> .env.dev
+        echo "REDIS_HOST=redis" >> .env.dev
+        echo "SENDINBLUE_API_KEY = ''" >> .env.dev
+        echo "SLACK_TOKEN = ''" >> .env.dev
+        echo "API_PREFIX = 'api'" >> .env.dev
+        echo "API_VERSION = 'v1'" >> .env.dev
+        echo "API_URL = 'api/v1/'" >> .env.dev
+        echo "STRIPE_FORWARD_URL = 192.168.0.4:8000/api/v1/payments/webhook/" >> .env.dev
+        echo "STRIPE_API_KEY = aa" >> .env.dev
+        echo "STRIPE_DEVICE_NAME = laptoptest" >> .env.dev
+        echo "STRIPE_ENDPOINT_SECRET = aa" >> .env.dev
+        docker-compose up -d --build
+    - name: Run django tests in container
+      run: docker exec api_test pytest -s 
+
+    - name: Stop containers
+      if: always()
+      run: docker-compose -f "docker-compose.yml" down
