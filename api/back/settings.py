@@ -11,11 +11,13 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 
 import os
+import socket
 from datetime import timedelta
 from pathlib import Path
 
 import sentry_sdk
 import sib_api_v3_sdk
+import stripe
 from sentry_sdk.integrations.django import DjangoIntegration
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -46,6 +48,37 @@ if ENVIROMENT == "DEV":
 else:
     DEBUG = False
 
+
+stripe.api_key = os.environ.get("STRIPE_SECRET_KEY")
+
+# SendinBlue Key
+SENDINBLUE_API_KEY = os.environ.get("SENDINBLUE_API_KEY")
+SENDINBLUE_CONF = sib_api_v3_sdk.Configuration()
+SENDINBLUE_CONF.api_key["api-key"] = SENDINBLUE_API_KEY
+
+# SLACK TOKEN
+SLACK_TOKEN = os.environ.get("SLACK_TOKEN")
+
+# 'DJANGO_ALLOWED_HOSTS' should be a single string of hosts with a space between each.
+# For example: 'DJANGO_ALLOWED_HOSTS=localhost 127.0.0.1 [::1]'
+
+#
+ALLOWED_HOSTS = os.environ.get("DJANGO_ALLOWED_HOSTS").split(" ")
+
+
+# CSRF
+hostname = socket.gethostname()
+localAddress = socket.gethostbyname(hostname)
+CSRF_TRUSTED_ORIGINS = [
+    "https://holistiqum.com",
+    "https://www.holistiqum.com",
+    "http://holistiqum.com",
+    "http://www.holistiqum.com",
+    "http://" + localAddress,
+    "https://stageholistiqum.com",
+    "https://www.stageholistiqum.com",
+]
+CSRF_COOKIE_NAME = "csrftoken"
 
 if ENVIROMENT == "PROD":
     sentry_dsn = ""
@@ -91,6 +124,25 @@ CORS_ALLOW_HEADERS = (
     "x-requested-with",
 )
 
+# SIMPLE JWT TOKEN CONFIGURATION
+SIMPLE_JWT = {
+    "ACCESS_TOKEN_LIFETIME": timedelta(days=15),
+    "REFRESH_TOKEN_LIFETIME": timedelta(days=30),
+    "ROTATE_REFRESH_TOKENS": True,
+    "BLACKLIST_AFTER_ROTATION": False,
+    "ALGORITHM": "HS256",
+    "SIGNING_KEY": SECRET_KEY,
+    "VERIFYING_KEY": None,
+    "AUTH_HEADER_TYPES": (
+        "JWT",
+        "Bearer",
+    ),
+    "USER_ID_FIELD": "id",
+    "USER_ID_CLAIM": "user_id",
+    "AUTH_TOKEN_CLASSES": ("rest_framework_simplejwt.tokens.AccessToken",),
+    "TOKEN_TYPE_CLAIM": "token_type",
+}
+
 # Application definition
 
 INSTALLED_APPS = [
@@ -103,6 +155,7 @@ INSTALLED_APPS = [
     "rest_framework",
     "corsheaders",
     "django_filters",
+    "django_rq",
     "dummy",
 ]
 
@@ -139,7 +192,7 @@ REST_FRAMEWORK = {
     # Use Django's standard `django.contrib.auth` permissions,
     # or allow read-only access for unauthenticated users.
     "DEFAULT_PERMISSION_CLASSES": [
-        "rest_framework.permissions.AllowAny",
+        "rest_framework.permissions.IsAuthenticated",
     ],
     "DEFAULT_AUTHENTICATION_CLASSES": [
         "rest_framework.authentication.BasicAuthentication",
@@ -215,3 +268,88 @@ STATICFILES_DIRS = [
 # Media
 MEDIA_ROOT = BASE_DIR / "media"
 MEDIA_URL = "/backend/media/"
+
+# Default primary key field type
+# https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
+
+DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+# EMAIL
+EMAIL_BACKEND = ""
+# Host for sending e-mail.
+EMAIL_HOST = ""
+# Port for sending e-mail.
+EMAIL_PORT = 465
+# Optional SMTP authentication information for EMAIL_HOST.
+EMAIL_HOST_USER = os.environ.get("EMAIL_HOST_USER")
+EMAIL_HOST_PASSWORD = os.environ.get("EMAIL_HOST_PASSWORD")
+EMAIL_USE_SSL = True
+
+
+
+# DJANGO RQ
+RQ = {
+    # Keep results around for 14 days
+    "DEFAULT_RESULT_TTL": 60
+    * 60
+    * 24
+    * 14,
+}
+
+RQ_QUEUES = {
+    "default": {
+        "HOST": os.environ.get("REDIS_HOST"),
+        "PORT": 6379,
+        "DB": 0,
+        "DEFAULT_TIMEOUT": 360,
+    },
+}
+
+RQ_SHOW_ADMIN_LINK = True
+
+LOGGING = {
+    "version": 1,
+    "disable_existing_loggers": False,
+    "formatters": {
+        "simple": {"format": "%(asctime)s %(levelname)s %(message)s"},
+    },
+    "handlers": {
+        "console": {
+            "level": "DEBUG",
+            "class": "logging.StreamHandler",
+            "formatter": "simple",
+        },
+    },
+    "loggers": {
+        "django.request": {
+            "handlers": ["console"],
+            "level": "DEBUG",
+            "propagate": True,
+        },
+        "rq_scheduler": {
+            "handlers": ["console"],
+            "level": "DEBUG",
+            "propagate": True,
+        },
+        "holistiqum": {
+            "handlers": [
+                "console",
+            ],
+            "level": "DEBUG",
+        },
+    },
+}
+
+TINYMCE_DEFAULT_CONFIG = {
+    "selector": "textarea",
+    "theme": "silver",
+    "plugins": "link image preview codesample contextmenu table code lists",
+    "toolbar1": "formatselect | bold italic underline | alignleft aligncenter alignright alignjustify "
+    "| bullist numlist | outdent indent | table | link image | codesample | preview code",
+    "contextmenu": "formats | link image",
+    "menubar": False,
+    "inline": False,
+    "statusbar": True,
+    "width": "auto",
+    "height": 360,
+}
