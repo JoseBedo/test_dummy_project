@@ -35,7 +35,7 @@ jobs:
         echo "STRIPE_ENDPOINT_SECRET = aa" >> .env.dev
         docker-compose up -d --build
     - name: Run django tests in container
-      run:|
+      run: |
         docker ps
         docker exec api_test pytest -s 
 
